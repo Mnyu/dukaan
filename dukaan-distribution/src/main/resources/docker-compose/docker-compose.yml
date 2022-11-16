@@ -46,22 +46,22 @@ services:
     depends_on:
       - postgres
     restart: always
-  dukaan-ui:
-    hostname: dukaan-ui
-    container_name: dukaan-ui
-    image: dukaan-ui:${APP_VERSION}
-    ports:
-      - "4200:4200"
-    environment:
-      - API_DUKAAN_ADMIN_HOST=dukaan-admin
-      - API_DUKAAN_ADMIN_PORT=8080
-      - API_DUKAAN_USER_HOST=dukaan-user
-      - API_DUKAAN_USER_PORT=8081
-      - TZ=${TIMEZONE}
-    depends_on:
-      - dukaan-admin
-      - dukaan-user
-    restart: always
+#  dukaan-ui:
+#    hostname: dukaan-ui
+#    container_name: dukaan-ui
+#    image: dukaan-ui:${APP_VERSION}
+#    ports:
+#      - "4200:4200"
+#    environment:
+#      - API_DUKAAN_ADMIN_HOST=dukaan-admin
+#      - API_DUKAAN_ADMIN_PORT=8080
+#      - API_DUKAAN_USER_HOST=dukaan-user
+#      - API_DUKAAN_USER_PORT=8081
+#      - TZ=${TIMEZONE}
+#    depends_on:
+#      - dukaan-admin
+#      - dukaan-user
+#    restart: always
   pgadmin:
     hostname: pgadmin
     container_name: pgadmin
