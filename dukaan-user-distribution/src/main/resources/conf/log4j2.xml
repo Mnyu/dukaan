@@ -5,8 +5,8 @@
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %30.40c{1.} - %msg%n"/>
         </Console>
         <RollingFile name="RollingFile"
-                     fileName="logs/dukaan-admin-app.log"
-                     filePattern="logs/$${date:yyyy-MM}/admin-app-%d{yyyy-MM-dd}-%i.log.gz">
+                     fileName="logs/dukaan-user-app.log"
+                     filePattern="logs/$${date:yyyy-MM}/user-app-%d{yyyy-MM-dd}-%i.log.gz">
             <PatternLayout>
                 <pattern>%d [%t] %-5level %30.40C{1.} - %m%n</pattern>
             </PatternLayout>

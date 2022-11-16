@@ -19,12 +19,8 @@
         <module>dukaan-admin</module>
         <module>dukaan-user</module>
         <module>dukaan-admin-distribution</module>
+        <module>dukaan-user-distribution</module>
     </modules>
-
-    <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-    </properties>
 
     <dependencyManagement>
         <dependencies>
