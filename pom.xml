@@ -18,11 +18,27 @@
         <module>dukaan-parent</module>
         <module>dukaan-admin</module>
         <module>dukaan-user</module>
+        <module>dukaan-admin-distribution</module>
     </modules>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.dukaan</groupId>
+                <artifactId>dukaan-admin</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.dukaan</groupId>
+                <artifactId>dukaan-user</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 </project>
