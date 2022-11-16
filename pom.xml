@@ -20,6 +20,7 @@
         <module>dukaan-user</module>
         <module>dukaan-admin-distribution</module>
         <module>dukaan-user-distribution</module>
+        <module>dukaan-ui</module>
     </modules>
 
     <dependencyManagement>
