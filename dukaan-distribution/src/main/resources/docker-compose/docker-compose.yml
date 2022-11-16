@@ -1,0 +1,90 @@
+version: "3.8"
+services:
+  postgres:
+    hostname: postgres
+    container_name: postgres
+    image: library/postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - TZ=${TIMEZONE}
+    restart: always
+  dukaan-admin:
+    hostname: dukaan-admin
+    container_name: dukaan-admin
+    image: dukaan-admin:${APP_VERSION}
+    expose:
+      - "8080"
+    environment:
+      - POSTGRES_HOSTNAME=${POSTGRES_HOSTNAME}
+      - POSTGRES_PORT=${POSTGRES_PORT}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_SCHEMA=${POSTGRES_SCHEMA}
+      - TZ=${TIMEZONE}
+    depends_on:
+      - postgres
+    restart: always
+  dukaan-user:
+    hostname: dukaan-user
+    container_name: dukaan-user
+    image: dukaan-user:${APP_VERSION}
+    expose:
+      - "8081"
+    environment:
+      - POSTGRES_HOSTNAME=${POSTGRES_HOSTNAME}
+      - POSTGRES_PORT=${POSTGRES_PORT}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_SCHEMA=${POSTGRES_SCHEMA}
+      - TZ=${TIMEZONE}
+    depends_on:
+      - postgres
+    restart: always
+  dukaan-ui:
+    hostname: dukaan-ui
+    container_name: dukaan-ui
+    image: dukaan-ui:${APP_VERSION}
+    ports:
+      - "4200:4200"
+    environment:
+      - API_DUKAAN_ADMIN_HOST=dukaan-admin
+      - API_DUKAAN_ADMIN_PORT=8080
+      - API_DUKAAN_USER_HOST=dukaan-user
+      - API_DUKAAN_USER_PORT=8081
+      - TZ=${TIMEZONE}
+    depends_on:
+      - dukaan-admin
+      - dukaan-user
+    restart: always
+  pgadmin:
+    hostname: pgadmin
+    container_name: pgadmin
+    image: dpage/pgadmin4:5
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
+      - TZ=${TIMEZONE}
+    ports:
+      - "5431:80"
+    restart: always
+    profiles:
+      - management
+  #  portainer:
+  #    hostname: portainer
+  #    container_name: portainer
+  #    image: portainer/portainer-ce:2.5.0
+  #    ports:
+  #      - "8000:8000"
+  #      - "9000:9000"
+  #    volumes:
+  #      - portainer_data:/data
+  #      - /var/run/docker.sock:/var/run/docker.sock
+  #    restart: always
+  #    profiles:
+  #      - management

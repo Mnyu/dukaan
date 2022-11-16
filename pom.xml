@@ -21,10 +21,16 @@
         <module>dukaan-admin-distribution</module>
         <module>dukaan-user-distribution</module>
         <module>dukaan-ui</module>
+        <module>dukaan-distribution</module>
     </modules>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.dukaan</groupId>
+                <artifactId>dukaan-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.dukaan</groupId>
                 <artifactId>dukaan-admin</artifactId>
@@ -33,6 +39,21 @@
             <dependency>
                 <groupId>com.dukaan</groupId>
                 <artifactId>dukaan-user</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.dukaan</groupId>
+                <artifactId>dukaan-admin-distribution</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.dukaan</groupId>
+                <artifactId>dukaan-user-distribution</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.dukaan</groupId>
+                <artifactId>dukaan-distribution</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
