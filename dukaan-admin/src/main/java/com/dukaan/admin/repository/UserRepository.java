@@ -1,4 +1,4 @@
-package com.dukaan.admin.user;
+package com.dukaan.admin.repository;
 
 import com.dukaan.common.entity.User;
 import org.springframework.data.repository.CrudRepository;
