@@ -36,7 +36,7 @@ printUsage() {
 
 run_server() {
   java ${DEBUG_OPTS} -cp "$CONF_DIR":"${LIB_DIR}"/dukaan-admin-"${APP_VERSION}".jar \
-    -Dloader.main=com.dukaan.DukaanAdminApplication \
+    -Dloader.main=com.dukaan.admin.DukaanAdminApplication \
     org.springframework.boot.loader.PropertiesLauncher
 }
 

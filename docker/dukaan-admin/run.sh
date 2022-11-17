@@ -10,7 +10,7 @@ source "${THIS_DIR}"/../../build.properties
 DOCKER_IMAGE_TAG=${APP_VERSION:=1.0.0}
 
 docker run -it -d \
-  -p 8080:8080 \
+  -p 4242:4242 \
   -e POSTGRES_HOSTNAME="localhost" \
   -e POSTGRES_PORT=5432 \
   -e POSTGRES_USER=postgres \

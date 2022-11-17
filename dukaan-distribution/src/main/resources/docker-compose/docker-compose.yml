@@ -16,8 +16,10 @@ services:
     hostname: dukaan-admin
     container_name: dukaan-admin
     image: dukaan-admin:${APP_VERSION}
-    expose:
-      - "8080"
+#    expose:
+#      - "4242"
+    ports:
+      - "4242:4242"
     environment:
       - POSTGRES_HOSTNAME=${POSTGRES_HOSTNAME}
       - POSTGRES_PORT=${POSTGRES_PORT}
@@ -33,8 +35,10 @@ services:
     hostname: dukaan-user
     container_name: dukaan-user
     image: dukaan-user:${APP_VERSION}
-    expose:
-      - "8081"
+#    expose:
+#      - "4343"
+    ports:
+      - "4343:4343"
     environment:
       - POSTGRES_HOSTNAME=${POSTGRES_HOSTNAME}
       - POSTGRES_PORT=${POSTGRES_PORT}
@@ -54,9 +58,9 @@ services:
 #      - "4200:4200"
 #    environment:
 #      - API_DUKAAN_ADMIN_HOST=dukaan-admin
-#      - API_DUKAAN_ADMIN_PORT=8080
+#      - API_DUKAAN_ADMIN_PORT=4242
 #      - API_DUKAAN_USER_HOST=dukaan-user
-#      - API_DUKAAN_USER_PORT=8081
+#      - API_DUKAAN_USER_PORT=4343
 #      - TZ=${TIMEZONE}
 #    depends_on:
 #      - dukaan-admin
