@@ -38,6 +38,12 @@ public class Role {
 
   public static final class Builder {
 
+    /***
+     * Custom private setter for id to make it not settable
+     *
+     * @param id String
+     * @return Builder
+     */
     private Role.Builder id(String id) {
       return this;
     }

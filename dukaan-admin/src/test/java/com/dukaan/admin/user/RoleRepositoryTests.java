@@ -10,6 +10,7 @@
 //
 //@DataJpaTest
 //@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+////@Rollback(false)
 //public class RoleRepositoryTests {
 //
 //  @Autowired
