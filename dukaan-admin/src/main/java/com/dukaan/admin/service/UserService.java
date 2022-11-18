@@ -1,5 +1,7 @@
 package com.dukaan.admin.service;
 
+import com.dukaan.admin.exception.ApiError;
+import com.dukaan.admin.exception.ApiException;
 import com.dukaan.common.model.UserTO;
 import com.dukaan.admin.repository.UserRepository;
 import com.dukaan.common.entity.User;
@@ -33,9 +35,20 @@ public class UserService {
         .collect(Collectors.toList());
   }
 
-  public UserTO save(UserTO userTO) {
+  public UserTO save(UserTO userTO) throws ApiException {
+    validate(userTO);
     User newUser = userRepository.save(getUserFromUserTO(userTO));
     return getUserToFromUser(newUser);
+  }
+
+  private void validate(UserTO userTO) throws ApiException {
+    if (userEmailExists(userTO.getEmail())) {
+      throw new ApiException(ApiError.USER_EMAIL_EXISTS);
+    }
+  }
+
+  private boolean userEmailExists(String email) {
+    return userRepository.findByEmail(email).isPresent();
   }
 
   private UserTO getUserToFromUser(User user) {

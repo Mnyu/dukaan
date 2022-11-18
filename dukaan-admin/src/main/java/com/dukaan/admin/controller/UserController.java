@@ -1,5 +1,6 @@
 package com.dukaan.admin.controller;
 
+import com.dukaan.admin.exception.ApiException;
 import com.dukaan.common.model.UserTO;
 import com.dukaan.admin.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class UserController {
   }
 
   @PostMapping
-  public ResponseEntity<UserTO> saveUser(@RequestBody UserTO userTO) {
+  public ResponseEntity<UserTO> saveUser(@RequestBody UserTO userTO) throws ApiException {
     UserTO newUserTO = userService.save(userTO);
     return ResponseEntity.status(HttpStatus.OK).body(newUserTO);
   }
