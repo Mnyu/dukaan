@@ -1,7 +1,7 @@
 package com.dukaan.admin.service;
 
-import com.dukaan.admin.exception.ApiError;
 import com.dukaan.admin.exception.ApiException;
+import com.dukaan.admin.util.Constants;
 import com.dukaan.common.model.UserTO;
 import com.dukaan.admin.repository.UserRepository;
 import com.dukaan.common.entity.User;
@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -35,6 +36,15 @@ public class UserService {
         .collect(Collectors.toList());
   }
 
+  public UserTO get(String userId) throws ApiException {
+    Optional<User> userOptional = userRepository.findById(userId);
+    if (userOptional.isEmpty()) {
+      String errMsg = String.format(Constants.USER_NOT_EXISTS, userId);
+      throw new ApiException(errMsg);
+    }
+    return getUserToFromUser(userOptional.get());
+  }
+
   public UserTO save(UserTO userTO) throws ApiException {
     validate(userTO);
     User newUser = userRepository.save(getUserFromUserTO(userTO));
@@ -43,7 +53,8 @@ public class UserService {
 
   private void validate(UserTO userTO) throws ApiException {
     if (userEmailExists(userTO.getEmail())) {
-      throw new ApiException(ApiError.USER_EMAIL_EXISTS);
+      String errMsg = String.format(Constants.USER_EMAIL_EXISTS, userTO.getEmail());
+      throw new ApiException(errMsg);
     }
   }
 

@@ -6,6 +6,5 @@ import lombok.Getter;
 @Builder
 @Getter
 public class ErrorTO {
-  private String code;
-  private String message;
+  private String error;
 }

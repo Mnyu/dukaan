@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +29,11 @@ public class UserController {
   @GetMapping
   public ResponseEntity<List<UserTO>> getAllUsers() {
     return ResponseEntity.status(HttpStatus.OK).body(userService.getAllUsers());
+  }
+
+  @GetMapping("/{userId}")
+  public ResponseEntity<UserTO> getUser(@PathVariable String userId) throws ApiException {
+    return ResponseEntity.status(HttpStatus.OK).body(userService.get(userId));
   }
 
   @PostMapping

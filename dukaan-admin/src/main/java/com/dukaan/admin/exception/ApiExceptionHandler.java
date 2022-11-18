@@ -20,8 +20,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
   private ErrorTO getErrorTO(ApiException exception) {
     return ErrorTO.builder()
-        .code(exception.getApiError().getCode())
-        .message(exception.getApiError().getMessage())
+        .error(exception.getMessage())
         .build();
   }
 
