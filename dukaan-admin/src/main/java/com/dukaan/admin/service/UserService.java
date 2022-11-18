@@ -5,6 +5,7 @@ import com.dukaan.admin.repository.UserRepository;
 import com.dukaan.common.entity.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,10 +17,13 @@ import java.util.stream.StreamSupport;
 public class UserService {
 
   private final UserRepository userRepository;
+  private final PasswordEncoder passwordEncoder;
 
   @Autowired
-  public UserService(UserRepository userRepository){
+  public UserService(UserRepository userRepository,
+                    PasswordEncoder passwordEncoder){
     this.userRepository = userRepository;
+    this.passwordEncoder = passwordEncoder;
   }
 
   public List<UserTO> getAllUsers() {
@@ -51,7 +55,7 @@ public class UserService {
     //TODO : throw exception for null userTO
     return User.builder()
         .email(userTO.getEmail())
-        .password(userTO.getPassword())
+        .password(passwordEncoder.encode(userTO.getPassword()))
         .firstName(userTO.getFirstName())
         .lastName(userTO.getLastName())
         .photoName(userTO.getPhotoName())

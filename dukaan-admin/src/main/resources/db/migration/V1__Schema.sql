@@ -30,7 +30,7 @@ CREATE TABLE USERS_ROLES (
 );
 
 INSERT INTO USERS(id, email, password, first_name, last_name, photo_name, is_active) VALUES
-('57964D464FDF4821A1ABEB1C2795883D', 'admin@dukaan.com', 'admin', 'Admin', 'Admin', null, true);
+('57964D464FDF4821A1ABEB1C2795883D', 'admin@dukaan.com', '$2a$10$KbyGVtLwjnpWONO6q2LYn.B4maLakYh/rfuPrmdI2rzZFFB8BQ7sq', 'Admin', 'Admin', null, true);
 
 INSERT INTO USERS_ROLES(user_id, role_id) VALUES
 ('57964D464FDF4821A1ABEB1C2795883D', '611F4954CCE948489D4A89F1842DD00E')
