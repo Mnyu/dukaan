@@ -21,6 +21,6 @@ public class UserTO {
   private String firstName;
   private String lastName;
   private String photoName;
-  private boolean isActive;
+  private Boolean active;
   private Set<Role> roles;
 }

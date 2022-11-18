@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,24 +30,31 @@ public class User {
   @Column(name = "id", length = 32, nullable = false)
   private String id;
 
+  @Setter
   @Column(name = "email", length = 128, nullable = false, unique = true)
   private String email;
 
+  @Setter
   @Column(name = "password", length = 64, nullable = false) // because length of encoded password = 64
   private String password;
 
+  @Setter
   @Column(name = "first_name", length = 45, nullable = false)
   private String firstName;
 
+  @Setter
   @Column(name = "last_name", length = 45, nullable = false)
   private String lastName;
 
+  @Setter
   @Column(name = "photo_name", length = 64)
   private String photoName;
 
+  @Setter
   @Column(name = "is_active", nullable = false)
   private boolean isActive;
 
+  @Setter
   @ManyToMany
   @JoinTable(name = "users_roles",
       joinColumns = @JoinColumn(name = "user_id"),

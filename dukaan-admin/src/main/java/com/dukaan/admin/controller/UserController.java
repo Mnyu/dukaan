@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,6 +41,12 @@ public class UserController {
   public ResponseEntity<UserTO> saveUser(@RequestBody UserTO userTO) throws ApiException {
     UserTO newUserTO = userService.save(userTO);
     return ResponseEntity.status(HttpStatus.OK).body(newUserTO);
+  }
+
+  @PutMapping()
+  public ResponseEntity<UserTO> updateUser(@RequestBody UserTO userTO) throws ApiException {
+    UserTO updatedUserTO = userService.update(userTO);
+    return ResponseEntity.status(HttpStatus.OK).body(updatedUserTO);
   }
 
 }

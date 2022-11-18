@@ -37,18 +37,41 @@ public class UserService {
   }
 
   public UserTO get(String userId) throws ApiException {
-    Optional<User> userOptional = userRepository.findById(userId);
-    if (userOptional.isEmpty()) {
-      String errMsg = String.format(Constants.USER_NOT_EXISTS, userId);
-      throw new ApiException(errMsg);
-    }
-    return getUserToFromUser(userOptional.get());
+    User user = getUser(userId);
+    return getUserToFromUser(user);
   }
 
   public UserTO save(UserTO userTO) throws ApiException {
     validate(userTO);
     User newUser = userRepository.save(getUserFromUserTO(userTO));
     return getUserToFromUser(newUser);
+  }
+
+  public UserTO update(UserTO userTO) throws ApiException {
+    validate(userTO);
+    User user = getUser(userTO.getId());
+    user.setEmail(userTO.getEmail() != null ? userTO.getEmail() : user.getEmail());
+    user.setPassword(userTO.getPassword() != null ? passwordEncoder.encode(userTO.getPassword())
+        : user.getPassword());
+    user.setFirstName(userTO.getFirstName() != null ? userTO.getFirstName() : user.getFirstName());
+    user.setLastName(userTO.getLastName() != null ? userTO.getLastName() : user.getLastName());
+    user.setPhotoName(userTO.getPhotoName() != null ? userTO.getPhotoName() : user.getPhotoName());
+    user.setActive(userTO.getActive() != null ? userTO.getActive() : user.isActive());
+    user.setRoles(userTO.getRoles() != null ? userTO.getRoles() : user.getRoles());
+    User updatedUser = userRepository.save(user);
+    return getUserToFromUser(updatedUser);
+  }
+
+  private User getUser(String userId) throws ApiException {
+    if (userId == null) {
+      throw new ApiException(Constants.USER_ID_MANDATORY);
+    }
+    Optional<User> userOptional = userRepository.findById(userId);
+    if (userOptional.isEmpty()) {
+      String errMsg = String.format(Constants.USER_NOT_EXISTS, userId);
+      throw new ApiException(errMsg);
+    }
+    return userOptional.get();
   }
 
   private void validate(UserTO userTO) throws ApiException {
@@ -70,7 +93,7 @@ public class UserService {
         .firstName(user.getFirstName())
         .lastName(user.getLastName())
         .photoName(user.getPhotoName())
-        .isActive(user.isActive())
+        .active(user.isActive())
         .roles(user.getRoles())
         .build();
   }
@@ -83,7 +106,7 @@ public class UserService {
         .firstName(userTO.getFirstName())
         .lastName(userTO.getLastName())
         .photoName(userTO.getPhotoName())
-        .isActive(userTO.isActive())
+        .isActive(userTO.getActive())
         .roles(userTO.getRoles())
         .build();
   }
