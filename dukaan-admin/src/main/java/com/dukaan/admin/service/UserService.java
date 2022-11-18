@@ -95,7 +95,6 @@ public class UserService {
   }
 
   private UserTO getUserToFromUser(User user) {
-    //TODO : throw exception for null user
     return UserTO.builder()
         .id(user.getId())
         .email(user.getEmail())
@@ -108,7 +107,6 @@ public class UserService {
   }
 
   private User getUserFromUserTO(UserTO userTO) {
-    //TODO : throw exception for null userTO
     return User.builder()
         .email(userTO.getEmail())
         .password(passwordEncoder.encode(userTO.getPassword()))
