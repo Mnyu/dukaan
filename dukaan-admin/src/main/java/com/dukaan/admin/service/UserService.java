@@ -62,6 +62,15 @@ public class UserService {
     return getUserToFromUser(updatedUser);
   }
 
+  public void delete(String userId) throws ApiException {
+    Long count = userRepository.countById(userId);
+    if (count == null || count == 0L) {
+      String errMsg = String.format(Constants.USER_NOT_EXISTS, userId);
+      throw new ApiException(errMsg);
+    }
+    userRepository.deleteById(userId);
+  }
+
   private User getUser(String userId) throws ApiException {
     if (userId == null) {
       throw new ApiException(Constants.USER_ID_MANDATORY);
