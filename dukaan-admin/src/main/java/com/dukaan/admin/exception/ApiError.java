@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Getter
 public enum ApiError {
-  EMAIL_EXISTS(Constants.ERR_001, Constants.EMAIL_EXISTS);
+  USER_EMAIL_EXISTS(Constants.ERR_001, Constants.USER_EMAIL_EXISTS);
 
   private String code;
   private String message;

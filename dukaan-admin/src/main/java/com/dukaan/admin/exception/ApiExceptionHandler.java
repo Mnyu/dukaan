@@ -1,17 +1,28 @@
 package com.dukaan.admin.exception;
 
+import com.dukaan.common.model.ErrorTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @Slf4j
+@ControllerAdvice
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
   @ExceptionHandler(ApiException.class)
-  public ResponseEntity<ApiError> handleCustomRewardsExceptions(ApiException exception) {
+  public ResponseEntity<ErrorTO> handleApiException(ApiException exception) {
     log.error("Exception occurred while invoking API: ", exception);
-    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exception.getApiError());
+    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(getErrorTO(exception));
   }
+
+  private ErrorTO getErrorTO(ApiException exception) {
+    return ErrorTO.builder()
+        .code(exception.getApiError().getCode())
+        .message(exception.getApiError().getMessage())
+        .build();
+  }
+
 }
