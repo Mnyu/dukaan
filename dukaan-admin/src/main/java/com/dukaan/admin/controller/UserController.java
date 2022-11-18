@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,8 +25,14 @@ public class UserController {
   }
 
   @GetMapping
-  public ResponseEntity<List<UserTO>> listAll() {
-    return ResponseEntity.status(HttpStatus.OK).body(userService.listAll());
+  public ResponseEntity<List<UserTO>> getAllUsers() {
+    return ResponseEntity.status(HttpStatus.OK).body(userService.getAllUsers());
+  }
+
+  @PostMapping
+  public ResponseEntity<UserTO> saveUser(@RequestBody UserTO userTO) {
+    UserTO newUserTO = userService.save(userTO);
+    return ResponseEntity.status(HttpStatus.OK).body(newUserTO);
   }
 
 }

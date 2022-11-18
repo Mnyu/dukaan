@@ -57,6 +57,7 @@ public class User {
   public User(User.Builder builder) {
     this.id = builder.id;
     this.email = builder.email;
+    this.password = builder.password;
     this.firstName = builder.firstName;
     this.lastName = builder.lastName;
     this.photoName = builder.photoName;
