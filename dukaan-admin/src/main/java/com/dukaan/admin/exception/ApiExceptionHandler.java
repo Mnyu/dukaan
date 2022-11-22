@@ -15,7 +15,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
   @ExceptionHandler(ApiException.class)
   public ResponseEntity<ErrorTO> handleApiException(ApiException exception) {
     log.error("Exception occurred while invoking API: ", exception);
-    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(getErrorTO(exception));
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(getErrorTO(exception));
   }
 
   private ErrorTO getErrorTO(ApiException exception) {
