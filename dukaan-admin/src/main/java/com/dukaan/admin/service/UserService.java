@@ -2,11 +2,15 @@ package com.dukaan.admin.service;
 
 import com.dukaan.admin.exception.ApiException;
 import com.dukaan.admin.util.Constants;
+import com.dukaan.common.util.PageUtil;
+import com.dukaan.common.model.PaginatedResponse;
 import com.dukaan.common.model.UserTO;
 import com.dukaan.admin.repository.UserRepository;
 import com.dukaan.common.entity.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +38,12 @@ public class UserService {
     return StreamSupport.stream(users.spliterator(), false)
         .map(this::getUserToFromUser)
         .collect(Collectors.toList());
+  }
+
+  public PaginatedResponse<UserTO> getUsers(int page, int size) {
+    Pageable pageable = PageUtil.getPageable(page, size);
+    Page<User> users = userRepository.findAll(pageable);
+    return PageUtil.getTransformedPaginatedResponse(users, this::getUserToFromUser);
   }
 
   public UserTO get(String userId) throws ApiException {
