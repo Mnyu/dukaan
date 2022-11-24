@@ -98,6 +98,15 @@ public class UserService {
     }
   }
 
+  public User getUserByEmail(String email) throws ApiException {
+    Optional<User> userOptional = userRepository.findByEmail(email);
+    if (userOptional.isEmpty()) {
+      String errMsg = String.format(Constants.USER_EMAIL_NOT_EXISTS, email);
+      throw new ApiException(errMsg);
+    }
+    return userOptional.get();
+  }
+
   private void exportToCSV(HttpServletResponse response, Iterable<User> users) throws ApiException {
     try {
       UserCsvExporter.export(response, users);
