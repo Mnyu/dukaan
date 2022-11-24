@@ -25,8 +25,9 @@
         <java.version>17</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
-        <flyway-version>9.8.1</flyway-version>
+        <flyway.version>9.8.1</flyway.version>
         <postgres.version>42.2.19</postgres.version>
+        <commons.csv.version>1.9.0</commons.csv.version>
     </properties>
 
     <dependencies>
@@ -50,7 +51,7 @@
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
-            <version>${flyway-version}</version>
+            <version>${flyway.version}</version>
         </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>

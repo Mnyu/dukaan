@@ -1,6 +1,7 @@
 package com.dukaan.admin.service;
 
 import com.dukaan.admin.exception.ApiException;
+import com.dukaan.admin.export.UserCsvExporter;
 import com.dukaan.admin.util.Constants;
 import com.dukaan.common.util.PageUtil;
 import com.dukaan.common.model.PaginatedResponse;
@@ -14,6 +15,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -84,6 +87,22 @@ public class UserService {
       throw new ApiException(errMsg);
     }
     userRepository.deleteById(userId);
+  }
+
+  public void export(String format, HttpServletResponse response) throws ApiException {
+    Iterable<User> users = userRepository.findAll();
+    switch (format) {
+    case Constants.EXPORT_CSV :  exportToCSV(response, users); break;
+    default: throw new ApiException(Constants.WRONG_EXPORT_FORMAT);
+    }
+  }
+
+  private void exportToCSV(HttpServletResponse response, Iterable<User> users) throws ApiException {
+    try {
+      UserCsvExporter.export(response, users);
+    } catch (IOException ex) {
+      throw new ApiException(Constants.UNABLE_TO_EXPORT_CSV, ex);
+    }
   }
 
   private User getUser(String userId) throws ApiException {

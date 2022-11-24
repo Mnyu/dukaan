@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController
@@ -63,6 +64,12 @@ public class UserController {
   @DeleteMapping("/{userId}")
   public void deleteUser(@PathVariable String userId) throws ApiException {
     userService.delete(userId);
+  }
+
+  @GetMapping("/export/{format}")
+  public void export(@PathVariable String format, HttpServletResponse httpServletResponse)
+      throws ApiException {
+    userService.export(format, httpServletResponse);
   }
 
 }
