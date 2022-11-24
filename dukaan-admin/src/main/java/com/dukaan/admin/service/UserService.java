@@ -40,8 +40,8 @@ public class UserService {
         .collect(Collectors.toList());
   }
 
-  public PaginatedResponse<UserTO> getUsers(int page, int size) {
-    Pageable pageable = PageUtil.getPageable(page, size);
+  public PaginatedResponse<UserTO> getUsers(int page, int size, String[] sortParams) {
+    Pageable pageable = PageUtil.getPageable(page, size, sortParams);
     Page<User> users = userRepository.findAll(pageable);
     return PageUtil.getTransformedPaginatedResponse(users, this::getUserToFromUser);
   }

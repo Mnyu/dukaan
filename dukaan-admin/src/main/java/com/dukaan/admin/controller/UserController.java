@@ -37,8 +37,9 @@ public class UserController {
 
   @GetMapping("")
   public ResponseEntity<PaginatedResponse<UserTO>> getUsers(@RequestParam(defaultValue = "1") int page,
-      @RequestParam(defaultValue = "5") int size) {
-    return ResponseEntity.status(HttpStatus.OK).body(userService.getUsers(page, size));
+      @RequestParam(defaultValue = "5") int size,
+      @RequestParam(defaultValue = "firstName") String[] sort) {
+    return ResponseEntity.status(HttpStatus.OK).body(userService.getUsers(page, size, sort));
   }
 
   @GetMapping("/{userId}")
