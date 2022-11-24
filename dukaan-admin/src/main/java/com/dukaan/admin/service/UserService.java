@@ -40,9 +40,14 @@ public class UserService {
         .collect(Collectors.toList());
   }
 
-  public PaginatedResponse<UserTO> getUsers(int page, int size, String[] sortParams) {
+  public PaginatedResponse<UserTO> getUsers(int page, int size, String[] sortParams, String searchKey) {
     Pageable pageable = PageUtil.getPageable(page, size, sortParams);
-    Page<User> users = userRepository.findAll(pageable);
+    Page<User> users;
+    if (searchKey != null && !searchKey.isEmpty()) {
+      users = userRepository.findAll(searchKey.toLowerCase(), pageable);
+    } else {
+      users = userRepository.findAll(pageable);
+    }
     return PageUtil.getTransformedPaginatedResponse(users, this::getUserToFromUser);
   }
 
