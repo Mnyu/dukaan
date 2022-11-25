@@ -26,6 +26,19 @@ public class WebSecurityConfig {
     http.authenticationProvider(authenticationProvider());
     http.authorizeRequests()
         .antMatchers("/login").permitAll()
+        .antMatchers("/users/**").hasAuthority("Admin")
+        .antMatchers("/categories/**").hasAnyAuthority("Admin", "Editor")
+        .antMatchers("/brands/**").hasAnyAuthority("Admin", "Editor")
+        .antMatchers("/products/**").hasAnyAuthority("Admin", "Seller", "Editor", "Shipper")
+        .antMatchers("/questions/**").hasAnyAuthority("Admin", "Assistant")
+        .antMatchers("/reviews/**").hasAnyAuthority("Admin", "Assistant")
+        .antMatchers("/customers/**").hasAnyAuthority("Admin", "Seller")
+        .antMatchers("/shipping/**").hasAnyAuthority("Admin", "Seller")
+        .antMatchers("/orders/**").hasAnyAuthority("Admin", "Seller", "Shipper")
+        .antMatchers("/reports/**").hasAnyAuthority("Admin", "Seller")
+        .antMatchers("/articles/**").hasAnyAuthority("Admin", "Editor")
+        .antMatchers("/menus/**").hasAnyAuthority("Admin", "Editor")
+        .antMatchers("/settings/**").hasAuthority("Admin")
         .anyRequest().authenticated();
     return http.build();
   }
