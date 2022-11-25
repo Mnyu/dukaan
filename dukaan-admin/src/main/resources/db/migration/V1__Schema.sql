@@ -4,13 +4,6 @@ CREATE TABLE ROLES (
     description varchar(150) not null
 );
 
-INSERT INTO ROLES(id, name, description) VALUES
-('611F4954CCE948489D4A89F1842DD00E', 'Admin', 'manage everything'),
-('2631B58952C04F1F9D379495603B1291', 'Seller', 'manage product price, customers, shipping, orders, sales reports'),
-('0BD5E6681ABA416D8573631C3323CCB1', 'Editor', 'manage categories, brands, products, articles and menus'),
-('DC53FDA5ECCA4B81AF6C8718B81450F0', 'Shipper', 'view products, view orders and update order status'),
-('45FB6462017E4C528A01BA6A0F0185B3', 'Assistant', 'manage questions and reviews');
-
 CREATE TABLE USERS (
     id  varchar(32) primary key,
     email varchar(128) not null unique,
@@ -28,6 +21,26 @@ CREATE TABLE USERS_ROLES (
     foreign key (user_id) references USERS(id),
     foreign key (role_id) references ROLES(id)
 );
+
+CREATE TABLE CATEGORIES (
+   id  varchar(32) primary key,
+   name varchar(120) not null unique,
+   alias varchar(64) not null unique,
+   image varchar(64),
+   is_active boolean not null,
+   parent_id varchar(32),
+   foreign key (parent_id) references CATEGORIES(id)
+);
+
+
+-------- Add Data --------
+
+INSERT INTO ROLES(id, name, description) VALUES
+('611F4954CCE948489D4A89F1842DD00E', 'Admin', 'manage everything'),
+('2631B58952C04F1F9D379495603B1291', 'Seller', 'manage product price, customers, shipping, orders, sales reports'),
+('0BD5E6681ABA416D8573631C3323CCB1', 'Editor', 'manage categories, brands, products, articles and menus'),
+('DC53FDA5ECCA4B81AF6C8718B81450F0', 'Shipper', 'view products, view orders and update order status'),
+('45FB6462017E4C528A01BA6A0F0185B3', 'Assistant', 'manage questions and reviews');
 
 INSERT INTO USERS(id, email, password, first_name, last_name, photo_name, is_active) VALUES
 ('57964D464FDF4821A1ABEB1C2795883D', 'admin@dukaan.com', '$2a$10$N5CXDLePpRQbcNUcO8qc5OEc4yOwofSsBubaM8Y9aKAVkgrm4cKK6', 'Admin', 'Admin', null, true);
@@ -146,3 +159,21 @@ INSERT INTO USERS_ROLES(user_id, role_id) VALUES
 ('DDD4D41268F74CF7BC8891B04D532FDC', '45FB6462017E4C528A01BA6A0F0185B3');
 INSERT INTO USERS_ROLES(user_id, role_id) VALUES
 ('562F331C3C0D4D3A8518A2EF1DB51E42', '45FB6462017E4C528A01BA6A0F0185B3');
+
+
+INSERT INTO categories (id, name, alias, image, is_active, parent_id) VALUES
+('6DD60D494C0D4BF2AC6F7B9814668CD0', 'Computers', 'computers', null, true, null);
+INSERT INTO categories (id, name, alias, image, is_active, parent_id) VALUES
+('1A857FCC8FD14562A4E807C995F32434', 'Laptops', 'laptops', null, true, '6DD60D494C0D4BF2AC6F7B9814668CD0');
+INSERT INTO categories (id, name, alias, image, is_active, parent_id) VALUES
+('B77B57460AB5455FB307C8FDD0B8C34C', 'Desktops', 'desktops', null, true, '6DD60D494C0D4BF2AC6F7B9814668CD0');
+INSERT INTO categories (id, name, alias, image, is_active, parent_id) VALUES
+('276299E8009044338EE56A5CD07F2E39', 'Computer Components', 'computer-components', null, true, '6DD60D494C0D4BF2AC6F7B9814668CD0');
+INSERT INTO categories (id, name, alias, image, is_active, parent_id) VALUES
+('789DEEFCA2484541ADA6A6433F9FDA8D', 'Memory', 'memory', null, true, '276299E8009044338EE56A5CD07F2E39');
+INSERT INTO categories (id, name, alias, image, is_active, parent_id) VALUES
+('7538D26CCFF9423AA163E2462FAA28AC', 'Electronics', 'electronics', null, true, null);
+INSERT INTO categories (id, name, alias, image, is_active, parent_id) VALUES
+('325D8227F3184A55A5D6587FE322F60C', 'Cameras', 'cameras', null, true, '7538D26CCFF9423AA163E2462FAA28AC');
+INSERT INTO categories (id, name, alias, image, is_active, parent_id) VALUES
+('9AD8781C032344C1A9CAC5749F3923F6', 'Mobiles', 'mobiles', null, true, '7538D26CCFF9423AA163E2462FAA28AC');
