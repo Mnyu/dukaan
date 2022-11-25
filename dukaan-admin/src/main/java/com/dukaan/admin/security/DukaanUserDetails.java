@@ -55,4 +55,8 @@ public class DukaanUserDetails implements UserDetails {
     return user.isActive();
   }
 
+  public String getId() {
+    return user.getId();
+  }
+
 }

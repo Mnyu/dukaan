@@ -10,5 +10,6 @@ public final class Constants {
   public static final String USER_EMAIL_NOT_EXISTS ="No User exists with email %s.";
   public static final String USER_ID_MANDATORY ="User id is mandatory.";
   public static final String UNABLE_TO_EXPORT_CSV ="Unable to export users data to csv.";
-  public static final String WRONG_EXPORT_FORMAT ="Wrong format for export specified";
+  public static final String WRONG_EXPORT_FORMAT ="Wrong format for export specified.";
+  public static final String ACCOUNT_UPDATE_ID_MISMATCH ="User id does not match with the logged-in user id.";
 }

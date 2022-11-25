@@ -2,6 +2,7 @@ package com.dukaan.admin.service;
 
 import com.dukaan.admin.exception.ApiException;
 import com.dukaan.admin.export.UserCsvExporter;
+import com.dukaan.admin.security.DukaanUserDetails;
 import com.dukaan.admin.util.Constants;
 import com.dukaan.common.util.PageUtil;
 import com.dukaan.common.model.PaginatedResponse;
@@ -81,6 +82,23 @@ public class UserService {
     return getUserToFromUser(updatedUser);
   }
 
+  public UserTO updateAccount(DukaanUserDetails dukaanUserDetails, UserTO userTO) throws ApiException {
+    if (userTO.getId() == null) {
+      throw new ApiException(Constants.USER_ID_MANDATORY);
+    }
+    if (!dukaanUserDetails.getId().equals(userTO.getId())) {
+      throw new ApiException(Constants.ACCOUNT_UPDATE_ID_MISMATCH);
+    }
+    User user = getUser(userTO.getId());
+    user.setPassword(userTO.getPassword() != null ? passwordEncoder.encode(userTO.getPassword())
+        : user.getPassword());
+    user.setFirstName(userTO.getFirstName() != null ? userTO.getFirstName() : user.getFirstName());
+    user.setLastName(userTO.getLastName() != null ? userTO.getLastName() : user.getLastName());
+    user.setPhotoName(userTO.getPhotoName() != null ? userTO.getPhotoName() : user.getPhotoName());
+    User updatedUser = userRepository.save(user);
+    return getUserToFromUser(updatedUser);
+  }
+
   public void delete(String userId) throws ApiException {
     Long count = userRepository.countById(userId);
     if (count == null || count == 0L) {
@@ -105,6 +123,10 @@ public class UserService {
       throw new ApiException(errMsg);
     }
     return userOptional.get();
+  }
+
+  public UserTO getUserToByEmail(String email) throws ApiException {
+    return getUserToFromUser(getUserByEmail(email));
   }
 
   private void exportToCSV(HttpServletResponse response, Iterable<User> users) throws ApiException {
