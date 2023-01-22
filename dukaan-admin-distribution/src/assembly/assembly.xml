@@ -9,9 +9,21 @@
 
     <fileSets>
         <fileSet>
-            <outputDirectory>/</outputDirectory>
             <directory>src/main/resources/</directory>
-            <filtered>true</filtered>
+<!--            <filtered>true</filtered>-->
+            <outputDirectory>/</outputDirectory>
+            <excludes>
+                <exclude>bin/dukaanadmin</exclude>
+            </excludes>
+        </fileSet>
+        <fileSet>
+            <directory>src/main/resources/</directory>
+<!--            <filtered>true</filtered>-->
+            <outputDirectory>/</outputDirectory>
+            <includes>
+                <include>bin/dukaanadmin</include>
+            </includes>
+            <fileMode>0755</fileMode>
         </fileSet>
     </fileSets>
 
