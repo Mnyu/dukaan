@@ -27,7 +27,7 @@ import java.util.UUID;
 public class Category {
 
   @Id
-  @Column(name = "id", length = 32, nullable = false)
+  @Column(name = "id", length = 50, nullable = false)
   private String id;
 
   @Setter
@@ -46,6 +46,7 @@ public class Category {
   @Column(name = "is_active", nullable = false)
   private boolean active;
 
+  @Setter
   @ManyToOne()
   @JoinColumn(name = "parent_id")
   private Category parent;
@@ -88,7 +89,7 @@ public class Category {
     }
 
     private String generateId() {
-      return UUID.randomUUID().toString().replace("-", "").toUpperCase();
+      return UUID.randomUUID().toString();
     }
   }
 

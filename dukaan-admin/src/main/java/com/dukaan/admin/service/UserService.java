@@ -62,15 +62,17 @@ public class UserService {
   }
 
   public UserTO save(UserTO userTO) throws ApiException {
-    validate(userTO);
+    validateUserEmail(userTO.getEmail());
     User newUser = userRepository.save(getUserFromUserTO(userTO));
     return getUserToFromUser(newUser);
   }
 
   public UserTO update(UserTO userTO) throws ApiException {
-    validate(userTO);
     User user = getUser(userTO.getId());
-    user.setEmail(userTO.getEmail() != null ? userTO.getEmail() : user.getEmail());
+    if (userTO.getEmail() != null && !userTO.getEmail().equals(user.getEmail())) {
+      validateUserEmail(userTO.getEmail());
+      user.setEmail(userTO.getEmail());
+    }
     user.setPassword(userTO.getPassword() != null ? passwordEncoder.encode(userTO.getPassword())
         : user.getPassword());
     user.setFirstName(userTO.getFirstName() != null ? userTO.getFirstName() : user.getFirstName());
@@ -149,15 +151,11 @@ public class UserService {
     return userOptional.get();
   }
 
-  private void validate(UserTO userTO) throws ApiException {
-    if (userEmailExists(userTO.getEmail())) {
-      String errMsg = String.format(Constants.USER_EMAIL_EXISTS, userTO.getEmail());
+  private void validateUserEmail(String email) throws ApiException {
+    if (userRepository.findByEmail(email).isPresent()) {
+      String errMsg = String.format(Constants.USER_EMAIL_EXISTS, email);
       throw new ApiException(errMsg);
     }
-  }
-
-  private boolean userEmailExists(String email) {
-    return userRepository.findByEmail(email).isPresent();
   }
 
   private UserTO getUserToFromUser(User user) {

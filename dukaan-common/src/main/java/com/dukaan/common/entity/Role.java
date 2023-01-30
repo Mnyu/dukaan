@@ -21,7 +21,7 @@ import java.util.UUID;
 public class Role {
 
   @Id
-  @Column(name = "id", length = 32, nullable = false)
+  @Column(name = "id", length = 50, nullable = false)
   private String id;
 
   @Column(name = "name", length = 40, nullable = false, unique = true)
@@ -54,7 +54,7 @@ public class Role {
     }
 
     private String generateId() {
-      return UUID.randomUUID().toString().replace("-", "").toUpperCase();
+      return UUID.randomUUID().toString();
     }
   }
 

@@ -28,7 +28,7 @@ import java.util.UUID;
 public class User {
 
   @Id
-  @Column(name = "id", length = 32, nullable = false)
+  @Column(name = "id", length = 50, nullable = false)
   private String id;
 
   @Setter
@@ -103,7 +103,7 @@ public class User {
     }
 
     private String generateId() {
-      return UUID.randomUUID().toString().replace("-", "").toUpperCase();
+      return UUID.randomUUID().toString();
     }
   }
 
