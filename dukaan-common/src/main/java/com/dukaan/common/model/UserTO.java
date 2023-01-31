@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -22,5 +23,5 @@ public class UserTO {
   private String lastName;
   private String photoName;
   private Boolean active;
-  private Set<Role> roles;
+  private Set<Role> roles = new HashSet<>();
 }

@@ -18,4 +18,8 @@ public final class Constants {
   public static final String CATEGORY_NAME_EXISTS ="Category with name %s already exists.";
   public static final String CATEGORY_ALIAS_EXISTS ="Category with alias %s already exists.";
   public static final String CATEGORY_CANNOT_BE_DELETED ="Category %s cannot be deleted as it has sub-categories.";
+
+  public static final String BRAND_NOT_EXISTS ="No brand exists with id %s.";
+  public static final String BRAND_ID_MANDATORY ="Brand id is mandatory.";
+  public static final String BRAND_NAME_EXISTS ="Brand with name %s already exists.";
 }

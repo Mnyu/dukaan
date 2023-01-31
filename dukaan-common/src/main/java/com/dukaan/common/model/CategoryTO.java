@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -20,5 +21,5 @@ public class CategoryTO {
   private String image;
   private boolean active;
   private String parent;
-  private List<CategoryTO> subCategories;
+  private List<CategoryTO> subCategories = new ArrayList<>();
 }

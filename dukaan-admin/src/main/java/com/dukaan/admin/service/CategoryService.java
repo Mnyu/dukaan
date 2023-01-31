@@ -83,7 +83,7 @@ public class CategoryService {
     return getCategoryToFromCategory(updatedCategory);
   }
 
-  private Category getCategory(String categoryId) throws ApiException {
+  protected Category getCategory(String categoryId) throws ApiException {
     if (categoryId == null) {
       throw new ApiException(Constants.CATEGORY_ID_MANDATORY);
     }

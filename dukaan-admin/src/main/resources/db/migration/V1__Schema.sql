@@ -23,13 +23,27 @@ CREATE TABLE USERS_ROLES (
 );
 
 CREATE TABLE CATEGORIES (
-   id  varchar(50) primary key,
-   name varchar(120) not null unique,
-   alias varchar(64) not null unique,
-   image varchar(64),
-   is_active boolean not null,
-   parent_id varchar(50),
-   foreign key (parent_id) references CATEGORIES(id)
+    id  varchar(50) primary key,
+    name varchar(120) not null unique,
+    alias varchar(64) not null unique,
+    image varchar(64),
+    is_active boolean not null,
+    parent_id varchar(50),
+    foreign key (parent_id) references CATEGORIES(id)
+);
+
+CREATE TABLE BRANDS (
+    id  varchar(50) primary key,
+    name varchar(50) not null unique,
+    logo varchar(64) not null
+);
+
+CREATE TABLE BRANDS_CATEGORIES (
+    brand_id varchar(50),
+    category_id varchar(50),
+    primary key (brand_id, category_id),
+    foreign key (brand_id) references BRANDS(id),
+    foreign key (category_id) references CATEGORIES(id)
 );
 
 

@@ -1,6 +1,6 @@
 package com.dukaan.admin.repository;
 
-import com.dukaan.common.entity.User;
+import com.dukaan.common.entity.Brand;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
@@ -11,13 +11,11 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends PagingAndSortingRepository<User, String> {
+public interface BrandRepository extends PagingAndSortingRepository<Brand, String> {
 
-  Optional<User> findByEmail(String email);
-
-  Long countById(String id);
+  Optional<Brand> findByName(String name);
 
   // For Search functionality
-  @Query("SELECT u FROM User u WHERE CONCAT(LOWER(u.email) , ' ', LOWER(u.firstName) , ' ', LOWER(u.lastName)) LIKE %:searchKey%")
-  Page<User> findAll(@Param("searchKey") String searchKey, Pageable pageable);
+  @Query("SELECT b FROM Brand b WHERE LOWER(b.name) LIKE %:searchKey%")
+  Page<Brand> findAll(@Param("searchKey") String searchKey, Pageable pageable);
 }
