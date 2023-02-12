@@ -16,6 +16,11 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, S
   Optional<Product> findByName(String name);
 
   // For Search Functionality
-  @Query("SELECT p FROM Product p WHERE LOWER(p.name) LIKE %:searchKey%")
+  @Query("SELECT p FROM Product p WHERE "
+      + "LOWER(p.name) LIKE %:searchKey% "
+      + "OR LOWER(p.shortDescription) LIKE %:searchKey% "
+      + "OR LOWER(p.fullDescription) LIKE %:searchKey% "
+      + "OR LOWER(p.brand.name) LIKE %:searchKey% "
+      + "OR LOWER(p.category.name) LIKE %:searchKey%")
   Page<Product> findAll(@Param("searchKey") String searchKey, Pageable pageable);
 }
