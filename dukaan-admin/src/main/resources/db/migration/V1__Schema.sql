@@ -46,6 +46,45 @@ CREATE TABLE BRANDS_CATEGORIES (
     foreign key (category_id) references CATEGORIES(id)
 );
 
+CREATE TABLE PRODUCTS (
+    id  varchar(50) primary key,
+    name varchar(256) not null unique,
+    alias varchar(256) not null unique,
+    short_description varchar(512) not null,
+    full_description varchar(4096) not null,
+    created timestamp not null,
+    updated timestamp not null,
+    is_active boolean not null,
+    in_stock boolean not null,
+    discount_percent float(2) not null,
+    cost float(8) not null,
+    price float(8) not null,
+    length float(2) not null,
+    width float(2) not null,
+    height float(2) not null,
+    weight float(2) not null,
+    main_image varchar(64) not null,
+    category_id varchar(50),
+    brand_id varchar(50),
+    foreign key (category_id) references CATEGORIES(id),
+    foreign key (brand_id) references BRANDS(id)
+);
+
+CREATE TABLE PRODUCT_IMAGES (
+    id  varchar(50) primary key,
+    name varchar(64) not null,
+    product_id varchar(50),
+    foreign key (product_id) references PRODUCTS(id)
+);
+
+CREATE TABLE PRODUCT_DETAILS (
+    id  varchar(50) primary key,
+    name varchar(256) not null,
+    value varchar(256) not null,
+    product_id varchar(50),
+    foreign key (product_id) references PRODUCTS(id)
+);
+
 
 -------- Add Data --------
 

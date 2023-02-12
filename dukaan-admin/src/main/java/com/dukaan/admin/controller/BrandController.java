@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/brands")
 public class BrandController {
@@ -26,6 +28,13 @@ public class BrandController {
   @Autowired
   public BrandController(BrandService brandService) {
     this.brandService = brandService;
+  }
+
+  @GetMapping("/all")
+  public ResponseEntity<List<BrandTO>> getALlBrands() {
+    return ResponseEntity
+        .status(HttpStatus.OK)
+        .body(brandService.getAllBrands());
   }
 
   @GetMapping("")

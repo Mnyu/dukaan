@@ -22,4 +22,9 @@ public final class Constants {
   public static final String BRAND_NOT_EXISTS ="No brand exists with id %s.";
   public static final String BRAND_ID_MANDATORY ="Brand id is mandatory.";
   public static final String BRAND_NAME_EXISTS ="Brand with name %s already exists.";
+
+  public static final String PRODUCT_CATEGORY_NOT_PART_OF_BRAND ="Category %s does not belong to brand %s.";
+  public static final String PRODUCT_NAME_EXISTS ="Product with name %s already exists.";
+  public static final String PRODUCT_ID_MANDATORY ="Product id is mandatory.";
+  public static final String PRODUCT_NOT_EXISTS ="No product exists with id %s.";
 }

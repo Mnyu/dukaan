@@ -8,6 +8,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -18,4 +19,7 @@ public interface BrandRepository extends PagingAndSortingRepository<Brand, Strin
   // For Search functionality
   @Query("SELECT b FROM Brand b WHERE LOWER(b.name) LIKE %:searchKey%")
   Page<Brand> findAll(@Param("searchKey") String searchKey, Pageable pageable);
+
+  @Query("SELECT b FROM Brand b ORDER BY b.name ASC")
+  List<Brand> findAll();
 }

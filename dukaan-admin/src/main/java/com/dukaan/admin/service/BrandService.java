@@ -16,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -32,6 +33,11 @@ public class BrandService {
       CategoryService categoryService) {
     this.brandRepo = brandRepository;
     this.categoryService = categoryService;
+  }
+
+  public List<BrandTO> getAllBrands() {
+    List<Brand> brands = brandRepo.findAll();
+    return brands.stream().map(this::getBrandTOFromBrand).collect(Collectors.toList());
   }
 
   public PaginatedResponse<BrandTO> getBrands(int page, int size, String[] sortParams, String searchKey) {
@@ -76,7 +82,7 @@ public class BrandService {
     brandRepo.deleteById(brandId);
   }
 
-  private Brand getBrand(String brandId) throws ApiException {
+  protected Brand getBrand(String brandId) throws ApiException {
     if (brandId == null) {
       throw new ApiException(Constants.BRAND_ID_MANDATORY);
     }
