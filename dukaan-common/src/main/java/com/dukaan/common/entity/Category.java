@@ -51,6 +51,10 @@ public class Category {
   @JoinColumn(name = "parent_id")
   private Category parent;
 
+  @Setter
+  @Column(name = "all_parent_ids", length = 1000)
+  private String allParentIds;
+
   @OneToMany(mappedBy = "parent")
   private Set<Category> subCategories = new HashSet<>();
 
@@ -61,6 +65,7 @@ public class Category {
     this.image = builder.image;
     this.active = builder.active;
     this.parent = builder.parent;
+    this.allParentIds = builder.allParentIds;
     this.subCategories = builder.subCategories;
   }
 

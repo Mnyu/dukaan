@@ -29,6 +29,7 @@ CREATE TABLE CATEGORIES (
     image varchar(64),
     is_active boolean not null,
     parent_id varchar(50),
+    all_parent_ids text,
     foreign key (parent_id) references CATEGORIES(id)
 );
 
@@ -160,38 +161,38 @@ INSERT INTO USERS_ROLES(user_id, role_id) VALUES
 ;
 
 
-INSERT INTO CATEGORIES(id, name, alias, image, is_active, parent_id) VALUES
-('b2e8500e-5b61-48d5-b2c2-c867e2bbfa24','Electronics','electronics','electronics.png',true,NULL),
-('845b23f1-c0ee-462d-9fc7-d972ead9e37a','Camera & Photo','camera','camera.jpg',true,'b2e8500e-5b61-48d5-b2c2-c867e2bbfa24'),
-('f1c0f5b4-072d-41ce-8d77-3d10b848ef6a','Computers','computers','computers.png',true,NULL),
-('d3695de8-0a03-4e61-a897-14ca1182d3da','Cell Phones & Accessories','cellphones','cellphones.png',true,'b2e8500e-5b61-48d5-b2c2-c867e2bbfa24'),
-('d2a4d24b-7de7-4016-a8b5-d208bf8bbb37','Desktops','desktop_computers','desktop-computers.png',true,'f1c0f5b4-072d-41ce-8d77-3d10b848ef6a'),
-('90867ce7-7355-430f-a26c-d332a1ba2901','Laptops','laptop_computers','laptop-computers.png',true,'f1c0f5b4-072d-41ce-8d77-3d10b848ef6a'),
-('c38bdaaa-cb09-4adb-85af-6013fdbec881','Tablets','tablet_computers','tablets.png',true,'f1c0f5b4-072d-41ce-8d77-3d10b848ef6a'),
-('6b7e60d7-f156-4d5a-8748-23dc2e614258','Computer Components','computer_components','computer-components.png',true,'f1c0f5b4-072d-41ce-8d77-3d10b848ef6a'),
-('e94f33d9-5cb0-48e7-b7bb-f452fa41132c','Bags & Cases','camera_bags_cases','bags-cases.png',true,'845b23f1-c0ee-462d-9fc7-d972ead9e37a'),
-('aa904214-6449-4eff-af32-edc517608656','Digital Cameras','digital_cameras','digital-cameras.png',true,'845b23f1-c0ee-462d-9fc7-d972ead9e37a'),
-('aff762be-f569-4ba6-b334-ad33a37cbf77','Flashes','camera_flashes','flashes.png',true,'845b23f1-c0ee-462d-9fc7-d972ead9e37a'),
-('cae28317-e94d-46dd-8524-533ead7d39ba','Lenses','camera_lenses','lenses.png',true,'845b23f1-c0ee-462d-9fc7-d972ead9e37a'),
-('9c1b67ef-5bee-476a-b85f-ccc80e087263','Tripods & Monopods','camera_tripods_monopods','tripods-monopods.png',true,'845b23f1-c0ee-462d-9fc7-d972ead9e37a'),
-('168c4292-36a8-4f16-a3d4-ece487d2bfaf','Carrier Cell Phones','carrier_cellphones','carrier-cellphones.png',true,'d3695de8-0a03-4e61-a897-14ca1182d3da'),
-('3b76c144-b85a-4cde-831e-e0af0699fa3c','Unlocked Cell Phones','unlocked_cellphones','unlocked-cellphones.png',true,'d3695de8-0a03-4e61-a897-14ca1182d3da'),
-('3d29753f-0975-4866-b46a-1dec875565be','Accessories','cellphone_accessories','cellphone-accessories.png',true,'d3695de8-0a03-4e61-a897-14ca1182d3da'),
-('b20b0b01-ca53-402b-ad10-b6a87343a0c4','Cables & Adapters','cellphone_cables_adapters','cables-adapters.png',true,'3d29753f-0975-4866-b46a-1dec875565be'),
-('63b1f492-11df-4baa-b42f-0dccf7829099','MicroSD Cards','microsd_cards','microsd-cards.png',true,'3d29753f-0975-4866-b46a-1dec875565be'),
-('71fb9423-4e74-46a6-9204-43c602f3721e','Stands','cellphone_stands','cellphone-stands.png',true,'3d29753f-0975-4866-b46a-1dec875565be'),
-('1c783726-fe4d-4b70-a23a-e434a1d2e02b','Cases','cellphone_cases','cellphone-cases.png',true,'3d29753f-0975-4866-b46a-1dec875565be'),
-('6df876ca-7650-43f0-9062-966e2241b55b','Headphones','headphones','headphones.png',true,'3d29753f-0975-4866-b46a-1dec875565be'),
-('aba40445-81ab-4b80-ad4d-57b291ebca2a','CPU Processors Unit','computer_processors','computer-processors.png',true,'6b7e60d7-f156-4d5a-8748-23dc2e614258'),
-('a5591b0d-ee85-46f6-8fea-1ea7afe6f9d6','Graphic Cards','computer_graphic_cards','graphic-cards.png',true,'6b7e60d7-f156-4d5a-8748-23dc2e614258'),
-('bde29811-e6c1-4acb-bfa4-77391c6fa448','Internal Hard Drives','hard_drive','internal-hard-drive.png',true,'6b7e60d7-f156-4d5a-8748-23dc2e614258'),
-('84b9d18c-59af-4869-9a55-78a8b2fef6bb','Internal Optical Drives','computer_optical_drives','internal-optical-drives.png',true,'6b7e60d7-f156-4d5a-8748-23dc2e614258'),
-('9dc72a66-690e-40dc-90b9-f09820bd61e6','Power Supplies','computer_power_supplies','power-supplies.png',true,'6b7e60d7-f156-4d5a-8748-23dc2e614258'),
-('35e98863-9ad8-4b18-8334-c933ee86d6dc','Solid State Drives','solid_state_drives','solid-state-drives.png',true,'6b7e60d7-f156-4d5a-8748-23dc2e614258'),
-('bde23f22-b891-4f96-8412-506864e2e350','Sound Cards','computer_sound_cards','sound-cards.png',true,'6b7e60d7-f156-4d5a-8748-23dc2e614258'),
-('6bed14f5-ac81-4168-bb6c-c822852d4232','Memory','computer_memory','computer-memory.png',true,'6b7e60d7-f156-4d5a-8748-23dc2e614258'),
-('eb884009-692b-4ac7-b76e-f69db9bdfdfd','Motherboard','computer_motherboard','motherboards.png',true,'6b7e60d7-f156-4d5a-8748-23dc2e614258'),
-('b523d5e1-6f85-44f7-85e9-c385c99e024f','Network Cards','computer_network_cards','network-cards.png',true,'6b7e60d7-f156-4d5a-8748-23dc2e614258')
+INSERT INTO CATEGORIES(id, name, alias, image, is_active, parent_id, all_parent_ids) VALUES
+('b2e8500e-5b61-48d5-b2c2-c867e2bbfa24', 'Electronics', 'electronics', 'electronics.png', true, null, null),
+('f1c0f5b4-072d-41ce-8d77-3d10b848ef6a', 'Computers', 'computers', 'computers.png', true, null, null),
+('d2a4d24b-7de7-4016-a8b5-d208bf8bbb37', 'Desktops', 'desktop_computers', 'desktop-computers.png', true, 'f1c0f5b4-072d-41ce-8d77-3d10b848ef6a', '$f1c0f5b4-072d-41ce-8d77-3d10b848ef6a$'),
+('6b7e60d7-f156-4d5a-8748-23dc2e614258', 'Computer Components', 'computer_components', 'computer-components.png', true, 'f1c0f5b4-072d-41ce-8d77-3d10b848ef6a', '$f1c0f5b4-072d-41ce-8d77-3d10b848ef6a$'),
+('9dc72a66-690e-40dc-90b9-f09820bd61e6', 'Power Supplies', 'computer_power_supplies', 'power-supplies.png', true, '6b7e60d7-f156-4d5a-8748-23dc2e614258', '$f1c0f5b4-072d-41ce-8d77-3d10b848ef6a$6b7e60d7-f156-4d5a-8748-23dc2e614258$'),
+('eb884009-692b-4ac7-b76e-f69db9bdfdfd', 'Motherboard', 'computer_motherboard', 'motherboards.png', true, '6b7e60d7-f156-4d5a-8748-23dc2e614258', '$f1c0f5b4-072d-41ce-8d77-3d10b848ef6a$6b7e60d7-f156-4d5a-8748-23dc2e614258$'),
+('35e98863-9ad8-4b18-8334-c933ee86d6dc', 'Solid State Drives', 'solid_state_drives', 'solid-state-drives.png', true, '6b7e60d7-f156-4d5a-8748-23dc2e614258', '$f1c0f5b4-072d-41ce-8d77-3d10b848ef6a$6b7e60d7-f156-4d5a-8748-23dc2e614258$'),
+('6bed14f5-ac81-4168-bb6c-c822852d4232', 'Memory', 'computer_memory', 'computer-memory.png', true, '6b7e60d7-f156-4d5a-8748-23dc2e614258', '$f1c0f5b4-072d-41ce-8d77-3d10b848ef6a$6b7e60d7-f156-4d5a-8748-23dc2e614258$'),
+('a5591b0d-ee85-46f6-8fea-1ea7afe6f9d6', 'Graphic Cards', 'computer_graphic_cards', 'graphic-cards.png', true, '6b7e60d7-f156-4d5a-8748-23dc2e614258', '$f1c0f5b4-072d-41ce-8d77-3d10b848ef6a$6b7e60d7-f156-4d5a-8748-23dc2e614258$'),
+('bde29811-e6c1-4acb-bfa4-77391c6fa448', 'Internal Hard Drives', 'hard_drive', 'internal-hard-drive.png', true, '6b7e60d7-f156-4d5a-8748-23dc2e614258', '$f1c0f5b4-072d-41ce-8d77-3d10b848ef6a$6b7e60d7-f156-4d5a-8748-23dc2e614258$'),
+('b523d5e1-6f85-44f7-85e9-c385c99e024f', 'Network Cards', 'computer_network_cards', 'network-cards.png', true, '6b7e60d7-f156-4d5a-8748-23dc2e614258', '$f1c0f5b4-072d-41ce-8d77-3d10b848ef6a$6b7e60d7-f156-4d5a-8748-23dc2e614258$'),
+('aba40445-81ab-4b80-ad4d-57b291ebca2a', 'CPU Processors Unit', 'computer_processors', 'computer-processors.png', true, '6b7e60d7-f156-4d5a-8748-23dc2e614258', '$f1c0f5b4-072d-41ce-8d77-3d10b848ef6a$6b7e60d7-f156-4d5a-8748-23dc2e614258$'),
+('84b9d18c-59af-4869-9a55-78a8b2fef6bb', 'Internal Optical Drives', 'computer_optical_drives', 'internal-optical-drives.png', true, '6b7e60d7-f156-4d5a-8748-23dc2e614258', '$f1c0f5b4-072d-41ce-8d77-3d10b848ef6a$6b7e60d7-f156-4d5a-8748-23dc2e614258$'),
+('bde23f22-b891-4f96-8412-506864e2e350', 'Sound Cards', 'computer_sound_cards', 'sound-cards.png', true, '6b7e60d7-f156-4d5a-8748-23dc2e614258', '$f1c0f5b4-072d-41ce-8d77-3d10b848ef6a$6b7e60d7-f156-4d5a-8748-23dc2e614258$'),
+('90867ce7-7355-430f-a26c-d332a1ba2901', 'Laptops', 'laptop_computers', 'laptop-computers.png', true, 'f1c0f5b4-072d-41ce-8d77-3d10b848ef6a', '$f1c0f5b4-072d-41ce-8d77-3d10b848ef6a$'),
+('c38bdaaa-cb09-4adb-85af-6013fdbec881', 'Tablets', 'tablet_computers', 'tablets.png', true, 'f1c0f5b4-072d-41ce-8d77-3d10b848ef6a', '$f1c0f5b4-072d-41ce-8d77-3d10b848ef6a$'),
+('d3695de8-0a03-4e61-a897-14ca1182d3da', 'Cell Phones & Accessories', 'cellphones', 'cellphones.png', true, 'b2e8500e-5b61-48d5-b2c2-c867e2bbfa24', '$b2e8500e-5b61-48d5-b2c2-c867e2bbfa24$'),
+('3b76c144-b85a-4cde-831e-e0af0699fa3c', 'Unlocked Cell Phones', 'unlocked_cellphones', 'unlocked-cellphones.png', true, 'd3695de8-0a03-4e61-a897-14ca1182d3da', '$b2e8500e-5b61-48d5-b2c2-c867e2bbfa24$d3695de8-0a03-4e61-a897-14ca1182d3da$'),
+('3d29753f-0975-4866-b46a-1dec875565be', 'Accessories', 'cellphone_accessories', 'cellphone-accessories.png', true, 'd3695de8-0a03-4e61-a897-14ca1182d3da', '$b2e8500e-5b61-48d5-b2c2-c867e2bbfa24$d3695de8-0a03-4e61-a897-14ca1182d3da$'),
+('63b1f492-11df-4baa-b42f-0dccf7829099', 'MicroSD Cards', 'microsd_cards', 'microsd-cards.png', true, '3d29753f-0975-4866-b46a-1dec875565be', '$b2e8500e-5b61-48d5-b2c2-c867e2bbfa24$d3695de8-0a03-4e61-a897-14ca1182d3da$3d29753f-0975-4866-b46a-1dec875565be$'),
+('6df876ca-7650-43f0-9062-966e2241b55b', 'Headphones', 'headphones', 'headphones.png', true, '3d29753f-0975-4866-b46a-1dec875565be', '$b2e8500e-5b61-48d5-b2c2-c867e2bbfa24$d3695de8-0a03-4e61-a897-14ca1182d3da$3d29753f-0975-4866-b46a-1dec875565be$'),
+('b20b0b01-ca53-402b-ad10-b6a87343a0c4', 'Cables & Adapters', 'cellphone_cables_adapters', 'cables-adapters.png', true, '3d29753f-0975-4866-b46a-1dec875565be', '$b2e8500e-5b61-48d5-b2c2-c867e2bbfa24$d3695de8-0a03-4e61-a897-14ca1182d3da$3d29753f-0975-4866-b46a-1dec875565be$'),
+('1c783726-fe4d-4b70-a23a-e434a1d2e02b', 'Cases', 'cellphone_cases', 'cellphone-cases.png', true, '3d29753f-0975-4866-b46a-1dec875565be', '$b2e8500e-5b61-48d5-b2c2-c867e2bbfa24$d3695de8-0a03-4e61-a897-14ca1182d3da$3d29753f-0975-4866-b46a-1dec875565be$'),
+('71fb9423-4e74-46a6-9204-43c602f3721e', 'Stands', 'cellphone_stands', 'cellphone-stands.png', true, '3d29753f-0975-4866-b46a-1dec875565be', '$b2e8500e-5b61-48d5-b2c2-c867e2bbfa24$d3695de8-0a03-4e61-a897-14ca1182d3da$3d29753f-0975-4866-b46a-1dec875565be$'),
+('168c4292-36a8-4f16-a3d4-ece487d2bfaf', 'Carrier Cell Phones', 'carrier_cellphones', 'carrier-cellphones.png', true, 'd3695de8-0a03-4e61-a897-14ca1182d3da', '$b2e8500e-5b61-48d5-b2c2-c867e2bbfa24$d3695de8-0a03-4e61-a897-14ca1182d3da$'),
+('845b23f1-c0ee-462d-9fc7-d972ead9e37a', 'Camera & Photo', 'camera', 'camera.jpg', true, 'b2e8500e-5b61-48d5-b2c2-c867e2bbfa24', '$b2e8500e-5b61-48d5-b2c2-c867e2bbfa24$'),
+('e94f33d9-5cb0-48e7-b7bb-f452fa41132c', 'Bags & Cases', 'camera_bags_cases', 'bags-cases.png', true, '845b23f1-c0ee-462d-9fc7-d972ead9e37a', '$b2e8500e-5b61-48d5-b2c2-c867e2bbfa24$845b23f1-c0ee-462d-9fc7-d972ead9e37a$'),
+('cae28317-e94d-46dd-8524-533ead7d39ba', 'Lenses', 'camera_lenses', 'lenses.png', true, '845b23f1-c0ee-462d-9fc7-d972ead9e37a', '$b2e8500e-5b61-48d5-b2c2-c867e2bbfa24$845b23f1-c0ee-462d-9fc7-d972ead9e37a$'),
+('aff762be-f569-4ba6-b334-ad33a37cbf77', 'Flashes', 'camera_flashes', 'flashes.png', true, '845b23f1-c0ee-462d-9fc7-d972ead9e37a', '$b2e8500e-5b61-48d5-b2c2-c867e2bbfa24$845b23f1-c0ee-462d-9fc7-d972ead9e37a$'),
+('aa904214-6449-4eff-af32-edc517608656', 'Digital Cameras', 'digital_cameras', 'digital-cameras.png', true, '845b23f1-c0ee-462d-9fc7-d972ead9e37a', '$b2e8500e-5b61-48d5-b2c2-c867e2bbfa24$845b23f1-c0ee-462d-9fc7-d972ead9e37a$'),
+('9c1b67ef-5bee-476a-b85f-ccc80e087263', 'Tripods & Monopods', 'camera_tripods_monopods', 'tripods-monopods.png', true, '845b23f1-c0ee-462d-9fc7-d972ead9e37a', '$b2e8500e-5b61-48d5-b2c2-c867e2bbfa24$845b23f1-c0ee-462d-9fc7-d972ead9e37a$')
 ;
 
 INSERT INTO BRANDS(id, name, logo) VALUES

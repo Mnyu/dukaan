@@ -19,7 +19,7 @@ public class CategoryTO {
   private String name;
   private String alias;
   private String image;
-  private boolean active;
+  private Boolean active;
   private String parent;
   private List<CategoryTO> subCategories = new ArrayList<>();
 }

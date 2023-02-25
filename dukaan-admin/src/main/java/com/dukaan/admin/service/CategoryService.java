@@ -20,6 +20,7 @@ import java.util.stream.StreamSupport;
 @Slf4j
 public class CategoryService {
 
+  private final String PARENT_CATEGORY_DELIMITER= "$";
   private final CategoryRepository catRepo;
 
   @Autowired
@@ -59,7 +60,13 @@ public class CategoryService {
 
   public CategoryTO save(CategoryTO categoryTO) throws ApiException {
     validate(categoryTO);
-    Category newCategory = catRepo.save(getCategoryFromCategoryTO(categoryTO));
+    Category parentCategory = null;
+    String allParentIds = null;
+    if (categoryTO.getParent() != null) {
+      parentCategory = getCategory(categoryTO.getParent());
+      allParentIds = getAllParentIds(parentCategory);
+    }
+    Category newCategory = catRepo.save(getCategory(categoryTO, parentCategory, allParentIds));
     return getCategoryToFromCategory(newCategory);
   }
 
@@ -75,10 +82,12 @@ public class CategoryService {
     }
     if (categoryTO.getParent() != null) {
       Category parentCategory = getCategory(categoryTO.getParent());
+      String allParentIds = getAllParentIds(parentCategory);
       category.setParent(parentCategory);
+      category.setAllParentIds(allParentIds);
     }
     category.setImage(categoryTO.getImage() != null ? categoryTO.getImage() : category.getImage());
-    category.setActive(categoryTO.isActive());
+    category.setActive(categoryTO.getActive() != null ? categoryTO.getActive() : category.isActive());
     Category updatedCategory = catRepo.save(category);
     return getCategoryToFromCategory(updatedCategory);
   }
@@ -114,13 +123,19 @@ public class CategoryService {
     }
   }
 
-  private Category getCategoryFromCategoryTO(CategoryTO categoryTO) throws ApiException {
-    Category parentCategory = getCategory(categoryTO.getParent());
+  private String getAllParentIds(Category parentCategory) {
+    String allParentIdsString = parentCategory.getAllParentIds() == null ? PARENT_CATEGORY_DELIMITER
+        : parentCategory.getAllParentIds();
+    allParentIdsString = allParentIdsString + parentCategory.getId() + PARENT_CATEGORY_DELIMITER;
+    return allParentIdsString;
+  }
+
+  private Category getCategory(CategoryTO categoryTO, Category parentCategory, String allParentIds) {
     return Category.builder()
         .name(categoryTO.getName())
         .alias(categoryTO.getAlias())
-        .active(categoryTO.isActive())
         .parent(parentCategory)
+        .allParentIds(allParentIds)
         .build();
   }
 
