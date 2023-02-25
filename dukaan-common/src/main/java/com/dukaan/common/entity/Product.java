@@ -43,7 +43,7 @@ public class Product {
   private String alias;
 
   @Setter
-  @Column(name = "short_description", length = 512, nullable = false)
+  @Column(name = "short_description", length = 1024, nullable = false)
   private String shortDescription;
 
   @Setter
