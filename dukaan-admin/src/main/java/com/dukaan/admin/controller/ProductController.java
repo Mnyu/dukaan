@@ -31,10 +31,10 @@ public class ProductController {
   @GetMapping()
   public ResponseEntity<PaginatedResponse<ProductTO>> getProducts(@RequestParam(defaultValue = "1") int page,
       @RequestParam(defaultValue = "5") int size, @RequestParam(defaultValue = "name") String[] sort,
-      @RequestParam(defaultValue = "") String q) {
+      @RequestParam(defaultValue = "") String categoryId, @RequestParam(defaultValue = "") String q) {
     return ResponseEntity
         .status(HttpStatus.OK)
-        .body(productService.getProducts(page, size, sort, q));
+        .body(productService.getProducts(page, size, sort, categoryId, q));
   }
 
   @GetMapping("/{productId}")

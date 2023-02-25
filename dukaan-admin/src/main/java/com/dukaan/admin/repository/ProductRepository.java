@@ -23,4 +23,24 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, S
       + "OR LOWER(p.brand.name) LIKE %:searchKey% "
       + "OR LOWER(p.category.name) LIKE %:searchKey%")
   Page<Product> findAll(@Param("searchKey") String searchKey, Pageable pageable);
+
+  @Query("SELECT p FROM Product p WHERE "
+      + "LOWER(p.category.id) = :categoryId "
+      + "OR LOWER(p.category.allParentIds) LIKE %:categoryMatch%")
+  Page<Product> findAllInCategory(@Param("categoryId") String categoryId,
+      @Param("categoryMatch") String categoryMatch, Pageable pageable);
+
+  @Query("SELECT p FROM Product p WHERE "
+      + "(LOWER(p.category.id) = :categoryId "
+      + "OR LOWER(p.category.allParentIds) LIKE %:categoryMatch%) "
+      + "AND "
+      + "(LOWER(p.name) LIKE %:searchKey% "
+      + "OR LOWER(p.shortDescription) LIKE %:searchKey% "
+      + "OR LOWER(p.fullDescription) LIKE %:searchKey% "
+      + "OR LOWER(p.brand.name) LIKE %:searchKey% "
+      + "OR LOWER(p.category.name) LIKE %:searchKey%)")
+  Page<Product> findAllInCategoryAndSearch(@Param("categoryId") String categoryId,
+      @Param("categoryMatch") String categoryMatch, @Param("searchKey") String searchKey, Pageable pageable);
+
+
 }

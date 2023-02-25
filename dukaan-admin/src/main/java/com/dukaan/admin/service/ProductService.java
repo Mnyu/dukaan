@@ -41,11 +41,20 @@ public class ProductService {
     this.categoryService = categoryService;
   }
 
-  public PaginatedResponse<ProductTO> getProducts(int page, int size, String[] sortParams, String searchKey) {
+  public PaginatedResponse<ProductTO> getProducts(int page, int size, String[] sortParams,
+      String categoryId, String searchKey) {
     Pageable pageable = PageUtil.getPageable(page, size, sortParams);
     Page<Product> products;
     if (searchKey != null && !searchKey.isEmpty()) {
-      products = productRepository.findAll(searchKey.toLowerCase(), pageable);
+      if (categoryId != null && !categoryId.isEmpty()) {
+        String categoryMatch = Constants.PARENT_CATEGORY_DELIMITER + categoryId + Constants.PARENT_CATEGORY_DELIMITER;
+        products = productRepository.findAllInCategoryAndSearch(categoryId, categoryMatch, searchKey.toLowerCase(), pageable);
+      } else {
+        products = productRepository.findAll(searchKey.toLowerCase(), pageable);
+      }
+    } else if (categoryId != null && !categoryId.isEmpty()) {
+      String categoryMatch = Constants.PARENT_CATEGORY_DELIMITER + categoryId + Constants.PARENT_CATEGORY_DELIMITER;
+      products = productRepository.findAllInCategory(categoryId, categoryMatch, pageable);
     } else {
       products = productRepository.findAll(pageable);
     }
@@ -91,8 +100,7 @@ public class ProductService {
   }
 
   public void delete(String productId) throws ApiException {
-    Product product = getProduct(productId);
-    productRepository.deleteById(productId);
+    throw new RuntimeException("Yet to be implemented");
   }
 
   private Product getProduct(String productId) throws ApiException {

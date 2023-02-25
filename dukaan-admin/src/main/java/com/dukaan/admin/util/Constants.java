@@ -27,4 +27,7 @@ public final class Constants {
   public static final String PRODUCT_NAME_EXISTS ="Product with name %s already exists.";
   public static final String PRODUCT_ID_MANDATORY ="Product id is mandatory.";
   public static final String PRODUCT_NOT_EXISTS ="No product exists with id %s.";
+
+
+  public static final String PARENT_CATEGORY_DELIMITER= "$";
 }

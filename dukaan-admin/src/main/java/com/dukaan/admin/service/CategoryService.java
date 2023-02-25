@@ -20,7 +20,6 @@ import java.util.stream.StreamSupport;
 @Slf4j
 public class CategoryService {
 
-  private final String PARENT_CATEGORY_DELIMITER= "$";
   private final CategoryRepository catRepo;
 
   @Autowired
@@ -124,9 +123,9 @@ public class CategoryService {
   }
 
   private String getAllParentIds(Category parentCategory) {
-    String allParentIdsString = parentCategory.getAllParentIds() == null ? PARENT_CATEGORY_DELIMITER
+    String allParentIdsString = parentCategory.getAllParentIds() == null ? Constants.PARENT_CATEGORY_DELIMITER
         : parentCategory.getAllParentIds();
-    allParentIdsString = allParentIdsString + parentCategory.getId() + PARENT_CATEGORY_DELIMITER;
+    allParentIdsString = allParentIdsString + parentCategory.getId() + Constants.PARENT_CATEGORY_DELIMITER;
     return allParentIdsString;
   }
 
